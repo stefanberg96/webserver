@@ -1,2 +1,8 @@
 /target
 **/*.rs.bk
+/.idea
+/stage
+defaultwebserver_source.tar.bz2
+*.iml
+/prime
+/parts
