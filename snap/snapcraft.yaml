@@ -1,6 +1,6 @@
-name: defaultwebserver
+name: webserver
 version: git
-summary: default_web_server for hello world
+summary: webserver for hello world
 description: |
   Returns hello world on the port specified from the cla.
 

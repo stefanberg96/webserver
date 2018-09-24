@@ -2,7 +2,8 @@
 **/*.rs.bk
 /.idea
 /stage
-defaultwebserver_source.tar.bz2
+*.tar.bz2
+*.snap
 *.iml
 /prime
 /parts
