@@ -1,0 +1,26 @@
+name: defaultwebserver
+version: git
+summary: default_web_server for hello world
+description: |
+  Returns hello world on the port specified from the cla.
+
+confinement: devmode
+
+apps:
+  webserver:
+    command: webserver
+
+parts:
+  webserver:
+    source: .
+    plugin: rust
+    build-attributes: [no-system-libraries]
+    build-packages:
+    - libudev-dev
+    - libssl-dev
+    - make
+    - pkg-config
+    stage-packages:
+    - libssl1.0.0
+    - libudev1
+    - libstdc++6

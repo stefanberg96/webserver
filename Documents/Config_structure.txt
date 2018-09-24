@@ -1,0 +1,19 @@
+Nessecary parts of the config.
+    - Allow multiple subdomains
+    - Every subdomain will have to have a port assigned
+    - Every subdomain needs to be unique
+
+Possible Json structure:
+
+{
+    subdomains:[
+        "subdomain.example.com":{
+            port:5000,
+            connection:http
+        },
+        "subdomain2.example.com":{
+            port:5001,
+            connection:http
+        }
+    ]
+}
