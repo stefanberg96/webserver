@@ -31,7 +31,7 @@ fn main() {
             .takes_value(true)).get_matches();
 
     let port =  matches.value_of("port").unwrap().parse::<u16>().unwrap();
-    let addr = SocketAddr::from(([127, 0, 0, 1], port));
+    let addr = SocketAddr::from(([192, 168, 1, 230], port));
     let listener = TcpListener::bind(addr).unwrap();
     println!("started listening on {}",addr);
     for stream in listener.incoming() {
