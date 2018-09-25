@@ -33,6 +33,7 @@ fn main() {
     let port =  matches.value_of("port").unwrap().parse::<u16>().unwrap();
     let addr = SocketAddr::from(([127, 0, 0, 1], port));
     let listener = TcpListener::bind(addr).unwrap();
+    println!("started listening on {}",addr);
     for stream in listener.incoming() {
         let stream = stream.unwrap();
 
@@ -48,6 +49,7 @@ fn main() {
 fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 512];
     stream.read(&mut buffer).unwrap();
+    println!("Receveid a request");
     stream.write(b" HTTP/1.1 200 OK\r\n\r\n hello world").unwrap();
     stream.flush().unwrap();
 }

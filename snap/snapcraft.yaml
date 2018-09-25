@@ -11,9 +11,6 @@ apps:
     command: webserver
     plugs:
         - network
-    daemon: simple
-    stop-command: webserver-stop
-    stop-timeout: 10s
 
 parts:
   webserver:
