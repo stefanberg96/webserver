@@ -10,7 +10,7 @@ use clap::{App,Arg};
 fn is_valid_port(v: String) -> Result<(), String>{
     let value = v.parse::<u16>();
     match value{
-        Ok(val) => return Ok(()),
+        Ok(_val) => return Ok(()),
         _ => Err(String::from("The port was not a valid number"))
     }
 }
