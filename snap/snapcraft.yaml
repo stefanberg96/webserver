@@ -11,6 +11,7 @@ apps:
     command: webserver
     plugs:
         - network
+        - network-bind
 
 parts:
   webserver:
