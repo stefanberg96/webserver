@@ -36,7 +36,8 @@ fn main() {
 fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 512];
     stream.read(&mut buffer).unwrap();
-    println!("Receveid a request");
+    println!("Receveid a request {}", String::from_utf8_lossy(&buffer));
     stream.write(b" HTTP/1.1 200 OK\r\n\r\n hello world").unwrap();
     stream.flush().unwrap();
+    println!("Send the information back to the request");
 }
