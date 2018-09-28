@@ -1,11 +1,11 @@
 extern crate clap;
+extern crate hyper;
 
-
-use std::io::prelude::*;
-use std::net::{TcpListener, TcpStream};
-use std::thread;
 use clap::{App,Arg};
-
+use hyper::{Body, Request, Response, Server};
+use hyper::rt::Future;
+use hyper::service::service_fn_ok;
+use std::str::FromStr;
 
 fn main() {
 
@@ -20,24 +20,31 @@ fn main() {
             .help("Sets the port to listen on")
             .takes_value(true)).get_matches();
 
-    let listener = TcpListener::bind(matches.value_of("ip").unwrap()).unwrap();
-    for stream in listener.incoming() {
-        let stream = stream.unwrap();
+    let addr = std::net::SocketAddr::from_str(matches.value_of("ip").unwrap()).unwrap();
 
-        thread::spawn(|| {
-            handle_connection(stream);
-        });
-    }
+    // A `Service` is needed for every connection, so this
+// creates on of our `hello_world` function.
+    let new_svc = || {
+        // service_fn_ok converts our function into a `Service`
+        service_fn_ok(handle_connection)
+    };
+
+    let server = Server::bind(&addr)
+        .serve(new_svc)
+        .map_err(|e| eprintln!("server error: {}", e));
+
+// Run this server for... forever!
+    hyper::rt::run(server);
+
 }
 
 
 
 
-fn handle_connection(mut stream: TcpStream) {
-    let mut buffer = [0; 512];
-    stream.read(&mut buffer).unwrap();
-    println!("Receveid a request {}", String::from_utf8_lossy(&buffer));
-    stream.write(b" HTTP/1.1 200 OK\r\n\r\n hello world").unwrap();
-    stream.flush().unwrap();
+fn handle_connection(req: Request<Body>) -> Response<Body>  {
+    println!("Receveid a request {:?}", req);
+
+    let resp = Response::new(Body::from("Hello world"));
     println!("Send the information back to the request");
+    return resp;
 }
