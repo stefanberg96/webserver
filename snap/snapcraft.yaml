@@ -8,7 +8,9 @@ confinement: devmode
 
 apps:
   webserver:
-    command: webserver
+    command: webserver --ip 192.168.1.230:8090
+    daemon: simple
+    restart-condition: always
     plugs:
         - network
         - network-bind

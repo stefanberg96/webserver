@@ -6,3 +6,4 @@ authors = ["Stefan van den Berg <bergshm@gmail.com>"]
 [dependencies]
 clap = "2.32.0"
 hyper = "0.12"
+

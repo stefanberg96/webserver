@@ -1,3 +1,4 @@
+
 extern crate clap;
 extern crate hyper;
 
@@ -6,6 +7,8 @@ use hyper::{Body, Request, Response, Server};
 use hyper::rt::Future;
 use hyper::service::service_fn_ok;
 use std::str::FromStr;
+
+
 
 fn main() {
 
@@ -23,7 +26,7 @@ fn main() {
     let addr = std::net::SocketAddr::from_str(matches.value_of("ip").unwrap()).unwrap();
 
     // A `Service` is needed for every connection, so this
-// creates on of our `hello_world` function.
+    // creates on of our `hello_world` function.
     let new_svc = || {
         // service_fn_ok converts our function into a `Service`
         service_fn_ok(handle_connection)
@@ -33,9 +36,8 @@ fn main() {
         .serve(new_svc)
         .map_err(|e| eprintln!("server error: {}", e));
 
-// Run this server for... forever!
+    // Run this server for... forever!
     hyper::rt::run(server);
-
 }
 
 
@@ -43,7 +45,6 @@ fn main() {
 
 fn handle_connection(req: Request<Body>) -> Response<Body>  {
     println!("Receveid a request {:?}", req);
-
     let resp = Response::new(Body::from("Hello world"));
     println!("Send the information back to the request");
     return resp;
